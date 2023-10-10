@@ -1,8 +1,6 @@
 from src.Types import DataType, RatingType
 
 
-
-
 class CalcRating:
 
     def __init__(self, data: DataType) -> None:

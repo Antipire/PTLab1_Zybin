@@ -30,13 +30,14 @@ class TestRatingFilter:
 
         return data, filtered_rating
 
-    def test_init_filter_rating(self, input_data: tuple[RatingType, RatingType]) -> None:
+    def test_init_filter_rating(self, input_data: tuple[RatingType,
+                                RatingType]) -> None:
         filter_rating = RatingFilter(input_data[0])
         assert input_data[0] == filter_rating.data
 
-    def test_filter_second_quantile(self, input_data: tuple[DataType, RatingType]) -> None:
+    def test_filter_second_quantile(self, input_data: tuple[DataType,
+                                    RatingType]) -> None:
         calc_rating = CalcRating(input_data[0]).calc()
         filter_rating = RatingFilter(calc_rating).filter_get_second_quantile()
 
         assert pytest.approx(filter_rating) == input_data[1]
-
