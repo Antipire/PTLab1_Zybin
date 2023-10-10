@@ -1,6 +1,6 @@
-from src.Types import DataType
+from src.Types import DataType, RatingType
 
-RatingType = dict[str, float]
+
 
 
 class CalcRating:
