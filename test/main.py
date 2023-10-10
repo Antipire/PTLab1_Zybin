@@ -4,12 +4,12 @@ import pytest
 
 @pytest.fixture()
 def correct_arguments_string() -> tuple[list[str], str]:
-    return ["-p", "/home/user/file.txt"], "/home/user/file.txt"
+    return ["-p", "../data/data.yaml"], "../data/data.yaml"
 
 
 @pytest.fixture()
-def noncorrect_arguments_string() -> list[str]:
-    return ["/home/user/file.txt"]
+def incorrect_arguments_string() -> list[str]:
+    return ["../data/data.yaml"]
 
 
 def test_get_path_from_correct_arguments(correct_arguments_string:
@@ -18,8 +18,8 @@ def test_get_path_from_correct_arguments(correct_arguments_string:
     assert path == correct_arguments_string[1]
 
 
-def test_get_path_from_noncorrect_arguments(
-        noncorrect_arguments_string: list[str]) -> None:
+def test_get_path_from_incorrect_arguments(
+        incorrect_arguments_string) -> None:
     with pytest.raises(SystemExit) as e:
-        get_path_from_arguments(noncorrect_arguments_string[0])
+        get_path_from_arguments(incorrect_arguments_string[0])
     assert e.type == SystemExit

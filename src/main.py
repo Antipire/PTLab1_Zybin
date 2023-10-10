@@ -2,6 +2,7 @@ import argparse
 import sys
 from src.CalcRating import CalcRating
 from src.TextDataReader import TextDataReader
+from src.RatingFilter import RatingFilter
 
 
 def get_path_from_arguments(args) -> str:
@@ -19,7 +20,9 @@ def main():
     students = reader.read(path)
     print("Students: ", students)
     rating = CalcRating(students).calc()
-    print("Rating: ", rating)
+
+    filtered_rating = RatingFilter(rating).filter_get_second_quantile()
+    print("Rating: ", filtered_rating)
 
 
 if __name__ == "__main__":
