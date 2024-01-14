@@ -1,5 +1,5 @@
+import statistics
 from src.Types import RatingType
-
 
 class RatingFilter:
 
@@ -7,34 +7,27 @@ class RatingFilter:
         self.data = data
         self.filtered_rating = {}
 
-    def filter_get_first_quantile(self) -> RatingType:
-        rating: int
-        for person, rating in self.data.items():
-            if 76 < rating <= 100:
-                self.filtered_rating[person] = rating
-
-        return self.filtered_rating
-
     def filter_get_second_quantile(self) -> RatingType:
-        rating: int
-        for person, rating in self.data.items():
-            if 50 < rating <= 75:
-                self.filtered_rating[person] = rating
+        # rating: int
+        # for person, rating in self.data.items():
+        #     if 50 < rating <= 75:
+        #         self.filtered_rating[person] = rating
+        #
+        # return self.filtered_rating
 
-        return self.filtered_rating
+        # Sort the dictionary by value (i.e., average score)
+        sorted_students = dict(sorted(self.data.items(), key=lambda item: item[1]))
 
-    def filter_get_third_quantile(self) -> RatingType:
-        rating: int
-        for person, rating in self.data.items():
-            if 25 < rating <= 50:
-                self.filtered_rating[person] = rating
+        # Calculate the total number of students
+        n = len(self.data)
 
-        return self.filtered_rating
+        # Calculate the lower and upper bounds of the second quartile
+        lower_bound = statistics.median(list(sorted_students.values())[:n // 4])
+        upper_bound = statistics.median(list(sorted_students.values())[n // 4:n // 2])
 
-    def filter_get_fourth_quantile(self) -> RatingType:
-        rating: int
-        for person, rating in self.data.items():
-            if 0 < rating <= 25:
-                self.filtered_rating[person] = rating
+        # Find all students whose scores fall within the range of the second quartile
+        second_quartile_students = {name: score for name, score in sorted_students.items() if
+                                    lower_bound <= score <= upper_bound}
 
-        return self.filtered_rating
+        return second_quartile_students
+

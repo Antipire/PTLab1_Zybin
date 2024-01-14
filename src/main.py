@@ -18,9 +18,11 @@ def main():
 
     reader = TextDataReader()
     students = reader.read(path)
-    print("Students: ", students)
+    print(f"Students: {students}")
     rating = CalcRating(students).calc()
 
+    sorted_students = dict(sorted(rating.items(), key=lambda item: item[1]))
+    print("Sorted students with rating: ", sorted_students)
     filtered_rating = RatingFilter(rating).filter_get_second_quantile()
     print("Rating: ", filtered_rating)
 
